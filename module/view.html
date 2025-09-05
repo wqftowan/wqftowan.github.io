@@ -1,0 +1,145 @@
+<div class="content">
+  <template *exist="language === 'zhCN'">
+    <h2>模块 / 视图</h2>
+    <h3 class="question">什么是视图模块</h3>
+    <div class="answer">
+      <div>视图是可复用的html文档片段。</div>
+      <div>视图模块配置项的“type”值为“view”。</div>
+      <div>合法的视图模块名称可以包含大小写字母，数字，“_”，首字符必须是小写字母。</div>
+      <div>视图模块由框架本身维护，不支持在指令表达式中通过“$module”变量访问视图模块内容。</div>
+    </div>
+    <h3 class="question">视图模块的用法</h3>
+    <div class="answer">
+      在页面中使用视图模块非常简单，您只要像创建普通html元素标签那样，将视图模块路径写在尖括号内就可以了（需要完整指定开闭标签）。我们来看示例：
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (static)"
+        src="https://codepen.io/dagger8224/embed/JjLYvxQ?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy"
+        allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/JjLYvxQ">
+          [dagger-demo] template module (static)</a> by Tony Peakman (<a
+          href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      请注意，不要使用与<a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element">原生html元素</a>相同的名称来命名视图模块，这将导致视图模块无法访问（标签名被识别为原生html元素而非视图模块）。一个规避模块和原生元素命名冲突的通用方案是使用由下划线连接的多个单词作为模块名称。我们来看例子：
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (invalid module name)" src="https://codepen.io/dagger8224/embed/abYvGeg?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/abYvGeg">
+        [dagger-demo] template module (invalid module name)</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      打开控制台，可以看到相关的错误提示信息。
+      <div>视图模块的常见使用场景是与“<a href="directive/html">*html</a>”指令配合使用，实现页面视图内容的动态加载。</div>
+      我们来看例子：
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (static)"
+        src="https://codepen.io/dagger8224/embed/OJvyZJP?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy"
+        allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/OJvyZJP">
+          [dagger-demo] template module (static)</a> by Tony Peakman (<a
+          href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      位于同一<a href="module/namespace">名空间</a>下的视图模块可以嵌套使用。我们来看例子：
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (invalid module name)" src="https://codepen.io/dagger8224/embed/ExEVGNR?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/ExEVGNR">
+        [dagger-demo] template module (invalid module name)</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      <div>上面的例子中，我们在视图模块“inline_module”内部渲染了两个同层级的视图模块“view_module1”和“view_module2”的实例。</div>
+      在<a href="module/namespace">名空间</a>章节中我们将了解视图模块更加复杂的使用方式。
+    </div>
+    <h3 class="question">在视图模块元素上使用指令</h3>
+    <div class="answer">
+      您可以在视图模块元素上声明<a href="directive/lifeCycle">生命周期指令</a>和<a href="directive/controller">控制指令</a>（除<a
+        href="directive/html">*html</a>、<a href="directive/text">*text</a>、<a href="directive/class">*class</a>和<a
+        href="directive/style">*style</a>之外），但不能使用<a href="directive/controller">事件处理指令</a>（除非使用“target”<a
+        href="directive/decorator">指令修饰符</a>指定其他的实体DOM元素作为事件监听器的目标）。
+      <div>我们来看例子：</div>
+      <iframe height="300" style="width: 100%;" scrolling="no" title="Untitled"
+        src="https://codepen.io/dagger8224/embed/LYQBxGp?default-tab=html%2Cresult&editable=true&theme-id=dark"
+        frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/LYQBxGp">
+          Untitled</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+    </div>
+    <h3 class="question">视图模块插槽</h3>
+    <div class="answer">视图模块支持元指令“@slot”。用法类似于<a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_templates_and_slots">Web组件</a>的插槽功能。
+      <div>您可以在视图模块元素上定义一个或多个插槽，并在创建视图模块元素实例时将插槽内容插入到相应的位置（根据@slot的值来对应）。</div>
+      <div>我们来看例子：</div>
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (@slot directive)" src="https://codepen.io/dagger8224/embed/KwdaOyv?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/KwdaOyv">
+        [dagger-demo] template module (@slot directive)</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+    </div>
+  </template>
+  <template *exist="language === 'enUS'">
+    <h2>Module / View</h2>
+    <h3 class="question">What is a View Module</h3>
+    <div class="answer">
+      <div>A view is a reusable HTML fragment.</div>
+      <div>The "type" value of the view module configuration item is "view".</div>
+      <div>The name of a legal view module can contain uppercase and lowercase letters, numbers, and underscores, and the first character must be a lowercase letter.</div>
+      <div>View modules are maintained by the framework itself and do not support access to view module content through the "$module" variable in directive expressions.</div>
+    </div>
+    <h3 class="question">Usage of View Modules</h3>
+    <div class="answer">
+      Using view modules in a page is very simple, you just need to write the view module path in angle brackets as you would create a regular HTML element tag (you need to specify both opening and closing tags). Let's take a look at an example:
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (static)"
+        src="https://codepen.io/dagger8224/embed/JjLYvxQ?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy"
+        allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/JjLYvxQ">
+          [dagger-demo] template module (static)</a> by Tony Peakman (<a
+          href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      Note that you should not use the same name as a <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">native HTML element</a> to name view modules, which will cause the view module to be inaccessible (the tag name will be recognized as a native HTML element instead of a view module). A common way to avoid naming conflicts between modules and native elements is to use multiple single-word names separated by underscores as module names. Let's take a look at an example:
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (invalid module name)" src="https://codepen.io/dagger8224/embed/abYvGeg?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/abYvGeg">
+        [dagger-demo] template module (invalid module name)</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      Open the console to see the error message.
+      <div>The common use case of view modules is to use the "<a href="directive/html">*html</a>" directive together with it, which allows dynamic loading of page view content.</div>
+      Let's take a look at an example:
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (static)"
+        src="https://codepen.io/dagger8224/embed/OJvyZJP?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy"
+        allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/OJvyZJP">
+          [dagger-demo] template module (static)</a> by Tony Peakman (<a
+          href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      View modules in the same <a href="module/namespace">namespace</a> can be nested. Let's take a look at an example:
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (invalid module name)" src="https://codepen.io/dagger8224/embed/ExEVGNR?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/ExEVGNR">
+        [dagger-demo] template module (invalid module name)</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+      In the example above, we render two instances of the same-level view modules "view_module1" and "view_module2" inside the "inline_module" view module.
+    </div>
+    <h3 class="question">Using Directives on View Module Elements</h3>
+    <div class="answer">
+      You can declare <a href="directive/lifeCycle">life cycle directives</a> and <a href="directive/controller">controller directives</a> (except for <a
+        href="directive/html">*html</a>, <a href="directive/text">*text</a>, <a href="directive/class">*class</a>, and <a
+        href="directive/style">*style</a>) on view module elements, but you cannot use <a href="directive/controller">event handling directives</a> (unless you use the "target" <a
+        href="directive/decorator">directive decorator</a> to specify another entity DOM element as the event listener's target).
+      <div>Let's take a look at an example:</div>
+      <iframe height="300" style="width: 100%;" scrolling="no" title="Untitled"
+        src="https://codepen.io/dagger8224/embed/LYQBxGp?default-tab=html%2Cresult&editable=true&theme-id=dark"
+        frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/LYQBxGp">
+          Untitled</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+    </div>
+    <h3 class="question">View Module Slots</h3>
+    <div class="answer">View modules support the meta directive "@slot". The usage is similar to <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots">Web components</a>' slot feature.
+      <div>You can define one or more slots on a view module element and insert the slot content when creating an instance of the view module (based on the "@slot" value).</div>
+      <div>Let's take a look at an example:</div>
+      <iframe height="300" style="width: 100%;" scrolling="no" title="[dagger-demo] template module (@slot directive)" src="https://codepen.io/dagger8224/embed/KwdaOyv?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href="https://codepen.io/dagger8224/pen/KwdaOyv">
+        [dagger-demo] template module (@slot directive)</a> by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a>)
+        on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+    </div>
+  </template>
+</div>
